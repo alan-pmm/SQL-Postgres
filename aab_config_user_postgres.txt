@@ -1,0 +1,87 @@
+alain@osboxes:~$ su - postgres
+Password: 
+postgres@osboxes:~$ psql -U postgres
+psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# alter user postgres PASSWORD 'postgres';
+
+postgres=# SELECT version();
+                                                                version                                                                 
+----------------------------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 12.17 (Ubuntu 12.17-0ubuntu0.20.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0, 64-bit
+(1 row)
+
+
+
+postgres=# \l
+                                   List of databases
+     Name     |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+--------------+----------+----------+-------------+-------------+-----------------------
+ postgres     | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ sqltest      | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0    | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+              |          |          |             |             | postgres=CTc/postgres
+ template1    | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+              |          |          |             |             | postgres=CTc/postgres
+(4 rows)
+
+
+postgres=# \q
+
+
+
+alain@osboxes:~$ sudo -u postgres psql
+
+
+
+postgres=# CREATE database alain;
+
+postgres=# \c alain
+You are now connected to database "alain" as user "postgres".
+
+
+alain=# \i /home/alain/Documents/data.sql
+
+
+alain=# SELECT * FROM sql_test LIMIT 10;
+ email_id | country |           order_number           | order_creation_date | order_type | customer_segment | product_category_id |           product_sku            | quantity | revenue 
+----------+---------+----------------------------------+---------------------+------------+------------------+---------------------+----------------------------------+----------+---------
+  1288505 |         | 7f598909bbd4144ab23a78c3a0bda9b6 | 2016-05-28 09:47:52 | Web        | Consumer         |                     | 8358ab6af9a7542d380e75e839d215a0 |        1 |  178.18
+  5420220 |         | a67223a8e5d02bd43d4c6264bfab0ece | 2016-12-17 21:49:34 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |    8.29
+  5372283 |         | 8154b2b9ea2ebb8505d516a1047ffda7 | 2016-11-02 21:59:14 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |    8.11
+  3683581 |         | 3bd387ec8fb575a7251f357ff54e83df | 2012-10-31 14:01:19 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+  1339694 |         | f02231d8c854362cc0803d0cb56dec8b | 2013-07-30 16:18:58 | TS         | Business         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+  5331159 |         | 11edec90d086dc2f95972dd172ffb13e | 2013-11-17 00:00:00 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+  1556796 |         | 7cbdcdd38dd288f1bce492a1dcb04736 | 2013-06-12 13:02:11 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+  3006169 |         | f82abca3053020461060a754e3715a32 | 2013-07-07 21:26:03 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+   629699 |         | 8ac5000dd1c5f4e35d18b09e499cd1eb | 2012-11-02 13:00:58 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+  3098839 |         | 58c1e51bd69fab7c128aa323a05a4a73 | 2013-07-27 20:17:43 | Web        | Consumer         |                     | 90c4c5e25a9aeacb4ce4244d5c762da0 |        1 |       0
+(10 rows)
+
+
+postgres=# \c alain
+You are now connected to database "alain" as user "postgres".
+alain=# SELECT COUNT(1) FROM sql_test;
+ count  
+--------
+ 242414
+(1 row)
+
+
+alain=# \q
+
+
+alain@osboxes:~$ wc -l /home/alain/Documents/data.sql
+1656924 /home/alain/Documents/data.sql
+
+
+
+alain=# SELECT COUNT(1) FROM sql_test;
+  count  
+---------
+ 1656911
+(1 row)
+
+
+
